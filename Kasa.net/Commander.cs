@@ -18,12 +18,7 @@
 using BitConverter;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Foundation.Metadata;
 using Windows.Networking;
 using Windows.UI.Xaml.Controls;
 
@@ -37,7 +32,7 @@ namespace Kasa
         // Return bytes containing the length of a message packed as Big Indian 
         // appended by a XOR Autokey Cipher with starting key = 171 of the message
         // which is how the TP-Link devices communicate over a network
-        private static byte[] Encrypt (string source)
+        private static byte[] Encrypt(string source)
         {
             int key = 171;
 
@@ -58,7 +53,7 @@ namespace Kasa
 
         public static async void SendCommand(string message, string ip)
         {
-            using(var streamSocket = new Windows.Networking.Sockets.StreamSocket())
+            using (var streamSocket = new Windows.Networking.Sockets.StreamSocket())
             {
                 try
                 {

@@ -17,26 +17,14 @@
 */
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Security.Cryptography.Core;
 using Windows.Storage;
 using Windows.UI;
-using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
-using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 
 namespace Kasa
@@ -47,7 +35,7 @@ namespace Kasa
         public static MainPage Instance
         {
             get { return _instance; }
-        
+
         }
 
         public AppBarToggleButton EditToggleButton
@@ -83,7 +71,7 @@ namespace Kasa
             switches = new Switches();
             theList.ItemsSource = switches;
             switches.Add(new Switch("All switches", "all"));
-            switches.Load(); 
+            switches.Load();
         }
 
         private void EditButton_Unchecked(object sender, RoutedEventArgs e)
