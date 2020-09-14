@@ -1,0 +1,108 @@
+﻿<Page x:Name="page"
+    x:Class="Kasa.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Kasa"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=local:Switches}"
+    ScrollViewer.VerticalScrollBarVisibility="Auto" HighContrastAdjustment="Auto" VerticalContentAlignment="Center"
+    SizeChanged="Page_Size_Changed"
+    >
+
+    <Page.Resources>
+        <local:CheckboxEnabledtoVisibilityConverter x:Key="CheckboxEnabledtoVisityConverterKey"/>
+        <local:CheckboxesColumnWidthConverter x:Key="CheckboxesColumnWidthConverterKey"/>
+    </Page.Resources>
+    <Page.Background>
+        <ThemeResource ResourceKey="SystemControlAcrylicWindowBrush"/>
+    </Page.Background>
+
+    <Page.BottomAppBar>
+        <CommandBar x:Name="TopBar">
+            <AppBarButton Icon="Add" Label="Add" x:Name="AddButton" Visibility="{Binding ElementName=EditButton, Path=IsChecked}" AllowFocusOnInteraction="True">
+                <AppBarButton.Flyout>
+                    <Flyout Placement="Top" LightDismissOverlayMode="On" x:Name="NewSwitchFlyout" Closed="NewSwitchFlyout_Closed">
+                        <Grid Padding="10,0,10,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBox Width="200" x:Name="NameInput" InputScope="Text" HorizontalAlignment="Center" PlaceholderText="Name" Grid.Row="0" Margin="10,10,10,10"/>
+                            <TextBox Width="200" x:Name="IPInput" HorizontalAlignment="Center" PlaceholderText="IP address" Grid.Row="1" Margin="10,10,10,10"/>
+                            <Button Content="Add" x:Name="NewSwitchPopupOKButton" HorizontalAlignment="Center" Grid.Row="2" Margin="10,10,10,10" Click="NewSwitchPopupOKButton_Click"/>
+                        </Grid>
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton Icon="Remove" Label="Remove" x:Name="RemoveButton" Visibility="{Binding ElementName=EditButton, Path=IsChecked}" Click="RemoveButton_Click"/>
+            <AppBarToggleButton Icon="Edit" Label="Edit" x:Name="EditButton" Unchecked="EditButton_Unchecked"/>
+            <AppBarSeparator/>
+            <AppBarButton Label="About" HorizontalAlignment="Right" Icon="Help">
+                <AppBarButton.Flyout>
+                    <Flyout x:Name="AboutFlyout">
+                        <StackPanel Padding="10,0,10,0">
+                            <TextBlock Text="Kasa.net v0.9" FontSize="20"/>
+                            <TextBlock Text="(c) Clement Lorteau" Margin="0,0,0,10"/>
+                            <HyperlinkButton Content="GitHub page"/>
+                        </StackPanel>
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <!--<CommandBar.SecondaryCommands>
+                <AppBarButton Label="About" HorizontalAlignment="Right" Icon="Help">
+                    <AppBarButton.Flyout>
+                        <Flyout x:Name="AboutFlyout">
+                            <StackPanel Padding="10,0,10,0">
+                                <TextBlock Text="Kasa.net v0.1" FontSize="20"/>
+                                <TextBlock Text="(c) Clement Lorteau" Margin="0,0,0,10"/>
+                                <HyperlinkButton Content="GitHub page"/>
+                            </StackPanel>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+            </CommandBar.SecondaryCommands>-->
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <RelativePanel x:Name="MainPanel" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,8,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <RelativePanel.Resources>
+            <CollectionViewSource x:Key="switchesCollection" Source="{Binding Switches}"/>
+        </RelativePanel.Resources>
+        <RelativePanel.Background>
+            <ThemeResource ResourceKey="SystemControlAcrylicWindowBrush"/>
+        </RelativePanel.Background>
+
+        <StackPanel Orientation="Horizontal" x:Name="AppTitleBar" Background="Transparent" VerticalAlignment="Center">
+            <TextBlock Text="Kasa.net" Style="{StaticResource CaptionTextBlockStyle}" Margin="8,0,0,0"/>
+        </StackPanel>
+
+        <ListView ItemsSource="{Binding Source={StaticResource switchesCollection}}"
+                  x:Name="theList" Margin="0,30,0,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionMode="None">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:Switch">
+                    <Grid ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{Binding IsChecked, Converter={StaticResource CheckboxesColumnWidthConverterKey}, ElementName=EditButton}"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Visibility="{Binding IsChecked, ElementName=EditButton}" IsChecked="{Binding Checked, Mode=TwoWay}" IsEnabled="{Binding IP, Converter={StaticResource CheckboxEnabledtoVisityConverterKey}}"/>
+                        <TextBlock Text="{Binding Name}" ToolTipService.ToolTip="{Binding IP}" Margin="30,0,0,0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <Button Content="On" Grid.Column="2" HorizontalAlignment="Stretch" Margin="0,0,20,0" Click="OnOff_Button_Click" Background="#4C000000"/>
+                        <Button Content="Off" Grid.Column="3" HorizontalAlignment="Stretch" Margin="0,0,20,0" Click="OnOff_Button_Click" Background="#4C000000"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </RelativePanel>
+
+</Page>
