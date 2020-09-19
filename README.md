@@ -1,4 +1,4 @@
-# Kasa.net
+# Kasa.NET
 Control your Kasa TP-Link smart switches from your Windows 10 device.
 
 This is a .NET program to control Kasa TP-Link smart switches from your Windows 10 device. 
@@ -9,6 +9,6 @@ To install this Windows 10 version just get it from the Windows Store.
 
 Screenshots:
 
-http://www.lorteau.fr/kasa.net/screenshot01.png
+[img]http://www.lorteau.fr/kasa.net/screenshot01.png[/img]
 
 http://www.lorteau.fr/kasa.net/screenshot02.png
