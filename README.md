@@ -9,6 +9,6 @@ To install this Windows 10 version just get it from the Windows Store.
 
 Screenshots:
 
-[img]http://www.lorteau.fr/kasa.net/screenshot01.png[/img]
+![Dark mode](http://www.lorteau.fr/kasa.net/screenshot01.png)
 
-http://www.lorteau.fr/kasa.net/screenshot02.png
+![Light mode](http://www.lorteau.fr/kasa.net/screenshot02.png)
