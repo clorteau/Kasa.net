@@ -339,3 +339,7 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 *.licenseheader
+/screenshot02_crop.png
+/screenshot02.png
+/screenshot01_crop.png
+/screenshot01.png

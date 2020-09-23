@@ -46,7 +46,9 @@ namespace Kasa
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+#pragma warning disable IDE0019 // Use pattern matching
             Frame rootFrame = Window.Current.Content as Frame;
+#pragma warning restore IDE0019 // Use pattern matching
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active

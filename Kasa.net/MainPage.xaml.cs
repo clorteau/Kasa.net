@@ -17,6 +17,7 @@
 */
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Storage;
@@ -53,7 +54,7 @@ namespace Kasa
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(300, 200));
             // load last window size or default
             double width = 370;
-            double height = 210;
+            double height = 220;
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             if (localSettings.Values["width"] != null) width = (double)localSettings.Values["width"];
             if (localSettings.Values["height"] != null) height = (double)localSettings.Values["height"];
@@ -72,6 +73,9 @@ namespace Kasa
             theList.ItemsSource = switches;
             switches.Add(new Switch("All switches", "all"));
             switches.Load();
+
+            Version v = Assembly.GetEntryAssembly().GetName().Version;
+            AboutVersionTextBlock.Text = v.Major.ToString() + "." + v.Minor.ToString() + "." + v.Build.ToString();
         }
 
         private void EditButton_Unchecked(object sender, RoutedEventArgs e)
@@ -138,7 +142,18 @@ namespace Kasa
             localSettings.Values["width"] = size.Width;
             localSettings.Values["height"] = size.Height;
 
-            MainPage.Instance.theList.Width = size.Width;
+            theList.Width = size.Width;
+        }
+
+        private void CommandBar_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            commandBar.IsOpen = true;
+        }
+
+        // just so the command bar doesn't collapse when the edit button is toggled
+        private void EditButton_Checked(object sender, RoutedEventArgs e)
+        {
+            commandBar.IsOpen = true;
         }
     }
 

@@ -37,7 +37,7 @@
     </Page.Background>
 
     <Page.BottomAppBar>
-        <CommandBar x:Name="TopBar">
+        <CommandBar x:Name="commandBar" OverflowButtonVisibility="Collapsed" PointerEntered="CommandBar_PointerEntered">
             <AppBarButton Icon="Add" Label="Add" x:Name="AddButton" Visibility="{Binding ElementName=EditButton, Path=IsChecked}" AllowFocusOnInteraction="True">
                 <AppBarButton.Flyout>
                     <Flyout Placement="Top" LightDismissOverlayMode="On" x:Name="NewSwitchFlyout" Closed="NewSwitchFlyout_Closed">
@@ -55,14 +55,17 @@
                 </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarButton Icon="Remove" Label="Remove" x:Name="RemoveButton" Visibility="{Binding ElementName=EditButton, Path=IsChecked}" Click="RemoveButton_Click"/>
-            <AppBarToggleButton Icon="Edit" Label="Edit" x:Name="EditButton" Unchecked="EditButton_Unchecked"/>
+            <AppBarToggleButton Icon="Edit" Label="Edit" x:Name="EditButton" Unchecked="EditButton_Unchecked" Checked="EditButton_Checked"/>
             <AppBarSeparator/>
             <AppBarButton Label="About" HorizontalAlignment="Right" Icon="Help">
                 <AppBarButton.Flyout>
                     <Flyout x:Name="AboutFlyout">
                         <StackPanel Padding="10,0,10,0">
-                            <TextBlock Text="Kasa.net v0.9" FontSize="20"/>
-                            <TextBlock Text="(c) Clement Lorteau" Margin="0,0,0,10"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Kasa.NET" Margin="0,0,5,0" FontSize="20"/>
+                                <TextBlock x:Name="AboutVersionTextBlock" VerticalAlignment="Bottom"/>
+                            </StackPanel>
+                            <TextBlock Text="© 2020 Clem Lorteau" Margin="0,0,0,10"/>
                             <HyperlinkButton Content="GitHub page" NavigateUri="https://github.com/clorteau/Kasa.net"/>
                         </StackPanel>
                     </Flyout>
@@ -80,7 +83,7 @@
         </RelativePanel.Background>
 
         <StackPanel Orientation="Horizontal" x:Name="AppTitleBar" Background="Transparent" VerticalAlignment="Center">
-            <TextBlock Text="Kasa.net" Style="{StaticResource CaptionTextBlockStyle}" Margin="8,0,0,0"/>
+            <TextBlock Text="Kasa.NET" Style="{StaticResource CaptionTextBlockStyle}" Margin="8,0,0,0"/>
         </StackPanel>
 
         <ListView ItemsSource="{Binding Source={StaticResource switchesCollection}}"
